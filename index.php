@@ -1,21 +1,24 @@
 <?php
 
 // Load the framework
-include 'app/max.php';
+include 'mib/mib.php';
 
 // Configure the database
-include 'app/db/db.php';
+include 'mib/db/db.php';
 
-// Add the routes and run the application
-$route = new Route();
-$route->add("", 'app/controllers/applicationHome.php');
-$route->add("/", 'app/controllers/applicationHome.php');
-$route->add("/home", 'app/controllers/applicationHome.php');
-$route->add("/contact", 'app/controllers/applicationContact.php');
-$route->add(null, 'app/controllers/applicationPage401.php');
-$route->run();
+// The main application
+$mib = new Mib();
 
-// Close the database
-DB::close();
+// Add the routes
+$mib->add("", new Route('mib/app/controllers/home.php', 'mib/app/views/layouts/main.php'));
+$mib->add("/", new Route('mib/app/controllers/home.php', 'mib/app/views/layouts/main.php'));
+$mib->add("/home", new Route('mib/app/controllers/home.php', 'mib/app/views/layouts/main.php'));
+
+$mib->add("/contact", new Route('mib/app/controllers/contact.php', 'mib/app/views/layouts/main.php'));
+
+$mib->add(null, new Route('mib/app/controllers/page404.php', null));
+
+// Run the application
+$mib->run();
 
 ?>
