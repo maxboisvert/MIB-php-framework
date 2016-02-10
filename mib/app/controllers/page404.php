@@ -1,1 +1,1 @@
-erro 404 page not found
+error 404 page not found
